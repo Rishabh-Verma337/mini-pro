@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Golden Fork - Restaurant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #d4a574;
+            --dark-color: #2c1810;
+            --light-color: #f5e6d3;
+            --accent-color: #c97f5a;
+            --text-color: #333;
+        }
+
+        body {
+            background-image: url("res\juliana-morales-ramirez-YSfxf0JKo44-unsplash.jpg");
+            font-family: 'Georgia', serif;
+            color: var(--text-color);
+            /*background-color: var(--light-color);*/
+            line-height: 1.6;
+        }
+
+        /* ===== NAVBAR ===== */
+
+        .navbar {
+            background-color: var(--dark-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: rgba(212, 165, 116, 0.1);
+        }
+
+        /* ===== HOME PAGE ===== */
+
+        .container {
+            display: none;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Home Page */
+        .home-header {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            padding: 3rem;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .home-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .home-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .intro-section h2 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .intro-section p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            margin-bottom: 2rem;
+        }
+
+        .menu-section h2 {
+            color: var(--dark-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .menu-item h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* ===== SIGN-UP FORM ===== */
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            animation: fadeInOverlay 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: slideInModal 0.4s ease;
+        }
+
+        @keyframes slideInModal {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal h2 {
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: rgba(212, 165, 116, 0.05);
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.4);
+        }
+
+        .btn-cancel {
+            background-color: #e0e0e0;
+            color: var(--dark-color);
+        }
+
+        .btn-cancel:hover {
+            background-color: #d0d0d0;
+        }
+
+        .password-constraints {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .constraint {
+            margin: 0.5rem 0;
+            color: #666;
+        }
+
+        .constraint.valid {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .constraint::before {
+            content: "✗ ";
+            margin-right: 0.5rem;
+        }
+
+        .constraint.valid::before {
+            content: "✓ ";
+        }
+
+        /* ===== BOOK A TABLE FORM ===== */
+
+        .booking-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .booking-section h2 {
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: 'Georgia', serif;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(212, 165, 116, 0.4);
+        }
+
+        .success-message {
+            background-color: #4caf50;
+            color: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            display: none;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* ===== STAFF PAGE ===== */
+
+      .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* EXACTLY 3 per row */
+    gap: 20px;
+    justify-items: center;
+}
+
+        .staff-card {
+            background: white;
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 3px solid var(--primary-color);
+        }
+
+        .staff-card.zoomed {
+            width: 350px;
+            height: 350px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+       .staff-card img {
+    width: 130px;
+    height: 130px;
+    border-radius: 40%;   /* makes it circular */
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+        /* Menu Item Image */
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .staff-card h3 {
+            color: var(--dark-color);
+            margin: 10px 0 5px;
+    font-size: 1.2rem;
+}
+
+        .staff-card p {
+            color: var(--accent-color);
+            font-size:20px;
+            margin:4px 0;
+        }
+
+	.staff-bio {
+	    margin-top: 10px;
+	    padding-top: 8px;
+	   border-top: 1px solid #ddd;
+
+   	 font-size: 0.9rem;
+ 	   line-height: 1.4;
+  	  color: #c97f5a;
+
+ 	   text-align: center;
+	}
+
+        /* ===== CONTACT PAGE ===== */
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .contact-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .contact-card a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .navbar-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .home-header h1 {
+                font-size: 2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .staff-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-links a {
+                padding: 0.75rem;
+            }
+
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+	<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="navbar-content">
+        <div class="logo">🍽️ The Golden Fork</div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')">Home</a></li>
+            <li><a onclick="openSignUp()">Sign-up</a></li>
+            <li><a onclick="showPage('booking')">Book a Table</a></li>
+            <li><a onclick="showPage('staff')">Staff</a></li>
+            <li><a onclick="showPage('contact')">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+	<!-- ===== HOME PAGE ===== -->
+<div id="home" class="container active">
+    <div class="home-header">
+        <h1>Welcome to The Golden Fork</h1>
+        <p>Experience Fine Dining at its Best</p>
+    </div>
+
+    <div class="intro-section">
+        <h2>About Our Restaurant</h2>
+        <p>
+            Welcome to The Golden Fork, where culinary excellence meets warm hospitality. 
+            Since 2010, we've been serving the finest dishes prepared by our award-winning chefs. 
+            Our restaurant is dedicated to providing an unforgettable dining experience with fresh, 
+            locally-sourced ingredients and traditional cooking techniques blended with modern creativity.
+        </p>
+    </div>
+
+    <div class="menu-section">
+        <h2>🍴 Featured Menu</h2>
+        <div class="menu-grid">
+          <div class="menu-grid">
+    <div class="menu-item">
+        <img src="butterchicken.jpeg">
+        <h3>Butter Chicken</h3>
+        <p>Creamy tomato gravy with tender chicken</p>
+        <div class="price">₹320</div>
+    </div>
+
+    <div class="menu-item">
+        <img src="pbm.jpeg">
+        <h3>Paneer Butter Masala</h3>
+        <p>Soft paneer in rich buttery gravy</p>
+        <div class="price">₹260</div>
+    </div>
+
+    <div class="menu-item">
+        <img src="dal.jpeg">
+        <h3>Dal Makhani</h3>
+        <p>Slow-cooked black lentils with butter</p>
+        <div class="price">₹220</div>
+    </div>
+
+    <div class="menu-item">
+        <img src="biryani.jpeg">
+        <h3>Chicken Biryani</h3>
+        <p>Fragrant basmati rice with spices</p>
+        <div class="price">₹300</div>
+    </div>
+
+    <div class="menu-item">
+        <img src="gn.jpeg">
+        <h3>Garlic Naan</h3>
+        <p>Fresh tandoor bread with garlic butter</p>
+        <div class="price">₹80</div>
+    </div>
+
+    <div class="menu-item">
+        <img src="gj.jpeg">
+        <h3>Gulab Jamun</h3>
+        <p>Soft sweet dumplings in sugar syrup</p>
+        <div class="price">₹90</div>
+    </div>
+</div>        </div>
+    </div>
+</div>
+
+	<!-- ===== SIGN-UP MODAL ===== -->
+<div id="signupModal" class="modal-overlay">
+    <div class="modal">
+        <h2>Create Account</h2>
+        
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter username (3-15 characters)">
+                <div class="error-message" id="usernameError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter password">
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <div class="password-constraints">
+                <p style="font-weight: bold; margin-bottom: 0.5rem;">Password must contain:</p>
+                <div class="constraint" id="constraint1">At least 8 characters</div>
+                <div class="constraint" id="constraint2">At least 1 uppercase letter (A-Z)</div>
+                <div class="constraint" id="constraint3">At least 1 number (0-9)</div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" class="btn btn-submit" onclick="validateAndSubmit()">Sign Up</button>
+                <button type="button" class="btn btn-cancel" onclick="closeSignUp()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+	<!-- ===== BOOK A TABLE PAGE ===== -->
+<div id="booking" class="container">
+    <div class="booking-section">
+        <h2>📅 Book a Table</h2>
+        
+        <div id="successMessage" class="success-message">
+            ✓ Table booked successfully! We look forward to your visit.
+        </div>
+
+        <form id="bookingForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" placeholder="Your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" placeholder="(123) 456-7890" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Number of Guests:</label>
+                    <select id="guests" required>
+                        <option value="">Select number of guests</option>
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="5">5 Guests</option>
+                        <option value="6">6+ Guests</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="specialRequests">Special Requests:</label>
+                <textarea id="specialRequests" placeholder="Any dietary restrictions or special occasions?"></textarea>
+            </div>
+
+            <!-- BILLING SECTION -->
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #ddd;">
+                <h3 style="color: var(--dark-color); margin-bottom: 1.5rem; font-size: 1.5rem;">
+                    📋 Add Dishes to Billing (Optional)
+                </h3>
+
+                <div id="billingContainer" style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                 <!-- Butter Chicken -->
+<div style="display: flex; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid #ddd;">
+    <input type="checkbox" id="dish1" class="dish-checkbox" data-price="320" onchange="calculateBilling()">
+    <label for="dish1" style="margin: 0 1rem; flex: 1;">Butter Chicken - ₹320</label>
+    <input type="number" id="qty1" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
+</div>
+
+<!-- Paneer -->
+<div style="display: flex; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid #ddd;">
+    <input type="checkbox" id="dish2" class="dish-checkbox" data-price="260" onchange="calculateBilling()">
+    <label for="dish2" style="margin: 0 1rem; flex: 1;">Paneer Butter Masala - ₹260</label>
+    <input type="number" id="qty2" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
+</div>
+
+<!-- Dal -->
+<div style="display: flex; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid #ddd;">
+    <input type="checkbox" id="dish3" class="dish-checkbox" data-price="220" onchange="calculateBilling()">
+    <label for="dish3">Dal Makhani - ₹220</label>
+    <input type="number" id="qty3" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
+</div>
+
+<!-- Biryani -->
+<div style="display: flex; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid #ddd;">
+    <input type="checkbox" id="dish4" class="dish-checkbox" data-price="300" onchange="calculateBilling()">
+    <label for="dish4">Chicken Biryani - ₹300</label>
+    <input type="number" id="qty4" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
+</div>
+
+<!-- Naan -->
+<div style="display: flex; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid #ddd;">
+    <input type="checkbox" id="dish5" class="dish-checkbox" data-price="80" onchange="calculateBilling()">
+    <label for="dish5">Garlic Naan - ₹80</label>
+    <input type="number" id="qty5" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
+</div>
+
+<!-- Dessert -->
+<div style="display: flex; align-items: center;">
+    <input type="checkbox" id="dish6" class="dish-checkbox" data-price="90" onchange="calculateBilling()">
+    <label for="dish6">Gulab Jamun - ₹90</label>
+    <input type="number" id="qty6" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
+</div>
+</div>
+                <!-- Total Bill Section -->
+                <div style="background: var(--primary-color); color: white; padding: 1.5rem; border-radius: 8px; text-align: center;">
+                    <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Total Billing Amount:</p>
+                    <h2 id="totalBill" style="font-size: 2.5rem; margin: 0;">$0.00</h2>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Book Now</button>
+        </form>
+    </div>
+</div>
+
+	<!-- ===== STAFF PAGE ===== -->
+<div id="staff" class="container">
+    <h2 style="text-align: center; color: var(--dark-color); font-size: 2rem; margin-bottom: 1rem;">
+        Meet Our Team
+    </h2>
+    
+    <div class="staff-grid">
+      <div class="staff-card" data-bio="12+ years expert in Mughlai & North Indian cuisine">
+    
+    <img src="c2.jpeg" alt="Chef Rajesh">
+
+    <h3>Chef Rajesh</h3>
+    <p>Head Chef</p>
+    <p class="staff-bio"></p>
+</div>
+
+        <div class="staff-card" data-bio="Expert in tandoori dishes and kebabs. Brings perfect smoky flavor with traditional clay oven techniques.">
+    
+    <img src="c1.jpeg" alt="Chef Rajesh">
+
+    <h3>Chef Riya</h3>
+    <p>Main Chef</p>
+    <p class="staff-bio"></p>
+</div>
+
+        <div class="staff-card" data-bio="Specializes in vegetarian and chinese dishes with balanced spices and consistent taste.">
+    
+    <img src="c3.jpeg" alt="w1">
+
+    <h3>Chef Sandeep</h3>
+    <p>Starters Specialist</p>
+    <p class="staff-bio"></p>
+</div>
+
+       <div class="staff-card" data-bio="5+ years of service experience. Known for quick response and excellent customer handling.">
+    
+    <img src="w1.jpeg" alt="Chef Rajesh">
+
+    <h3>Aman</h3>
+    <p>Senior Waiter</p>
+    <p class="staff-bio"></p>
+</div>
+
+        <div class="staff-card" data-bio="Ensures smooth dining experience and attentive service with a friendly approach.">
+    
+    <img src="w2.jpeg" alt="Chef Rajesh">
+
+    <h3>Manan</h3>
+    <p>Service Staff</p>
+    <p class="staff-bio"></p>
+</div>
+
+       <div class="staff-card" data-bio="12+ years expert in Mughlai & North Indian cuisine">
+    
+    <img src="m1.jpeg" alt="Chef Rajesh">
+
+    <h3>Albert</h3>
+    <p>Head Chef</p>
+    <p class="staff-bio"></p>
+</div>
+
+   
+</div>
+</div>
+
+<!-- ===== CONTACT PAGE ===== -->
+<div id="contact" class="container">
+    <h2 style="text-align: center; color: var(--dark-color); font-size: 2rem; margin-bottom: 2rem;">
+        Get In Touch
+    </h2>
+
+    <div class="contact-container">
+        <div class="contact-card">
+            <h3>📍 Location</h3>
+            <p>
+                The Golden Fork<br>
+                123 Gourmet Street<br>
+                Culinary City, CC 12345<br>
+                United States
+            </p>
+        </div>
+
+        <div class="contact-card">
+            <h3>📞 Phone</h3>
+            <p>
+                Reservations: <a href="tel:+1234567890">(123) 456-7890</a><br>
+                General Inquiries: <a href="tel:+1234567891">(123) 456-7891</a><br>
+                <br>
+                Hours: Mon-Sun: 5:00 PM - 11:00 PM
+            </p>
+        </div>
+
+        <div class="contact-card">
+            <h3>✉️ Email</h3>
+            <p>
+                Reservations: <a href="/cdn-cgi/l/email-protection#40222f2f2b00272f2c24252e262f322b6e232f2d"><span class="__cf_email__" data-cfemail="680a070703280f07040c0d060e071a03460b0705">[email&#160;protected]</span></a><br>
+                General: <a href="/cdn-cgi/l/email-protection#a8c1c6cec7e8cfc7c4cccdc6cec7dac386cbc7c5"><span class="__cf_email__" data-cfemail="ec85828a83ac8b83808889828a839e87c28f8381">[email&#160;protected]</span></a><br>
+                Catering: <a href="/cdn-cgi/l/email-protection#5330322736213a3d3413343c3f37363d353c21387d303c3e"><span class="__cf_email__" data-cfemail="5635372233243f38311631393a3233383039243d7835393b">[email&#160;protected]</span></a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // ===== PAGE NAVIGATION =====
+    function showPage(pageId) {
+        const pages = document.querySelectorAll('.container');
+        pages.forEach(page => page.classList.remove('active'));
+
+        const selectedPage = document.getElementById(pageId);
+        if (selectedPage) {
+            selectedPage.classList.add('active');
+        }
+    }
+    window.showPage = showPage;
+
+    // ===== SIGN-UP MODAL =====
+    function openSignUp() {
+        document.getElementById('signupModal').classList.add('active');
+    }
+
+    function closeSignUp() {
+        document.getElementById('signupModal').classList.remove('active');
+        document.getElementById('signupForm').reset();
+
+        document.getElementById('usernameError').classList.remove('show');
+        document.getElementById('passwordError').classList.remove('show');
+    }
+
+    window.openSignUp = openSignUp;
+    window.closeSignUp = closeSignUp;
+
+    document.getElementById('signupModal').addEventListener('click', function (event) {
+        if (event.target === this) closeSignUp();
+    });
+
+    // ===== PASSWORD VALIDATION =====
+    const passwordInput = document.getElementById('password');
+
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function () {
+            const password = this.value;
+
+            document.getElementById('constraint1').classList.toggle('valid', password.length >= 8);
+            document.getElementById('constraint2').classList.toggle('valid', /[A-Z]/.test(password));
+            document.getElementById('constraint3').classList.toggle('valid', /[0-9]/.test(password));
+        });
+    }
+
+    // ===== SIGNUP VALIDATION =====
+    function validateAndSubmit() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const usernameError = document.getElementById('usernameError');
+        const passwordError = document.getElementById('passwordError');
+
+        usernameError.classList.remove('show');
+        passwordError.classList.remove('show');
+
+        let isValid = true;
+
+        if (username.length < 3 || username.length > 15) {
+            usernameError.textContent = 'Username must be 3–15 chars';
+            usernameError.classList.add('show');
+            isValid = false;
+        }
+
+        if (password.length < 8) {
+            passwordError.textContent = 'Min 8 characters';
+            passwordError.classList.add('show');
+            isValid = false;
+        } else if (!/[A-Z]/.test(password)) {
+            passwordError.textContent = 'Need uppercase';
+            passwordError.classList.add('show');
+            isValid = false;
+        } else if (!/[0-9]/.test(password)) {
+            passwordError.textContent = 'Need number';
+            passwordError.classList.add('show');
+            isValid = false;
+        }
+
+        if (isValid) {
+            alert('✓ Signup successful');
+            closeSignUp();
+        }
+    }
+    window.validateAndSubmit = validateAndSubmit;
+
+    // ===== BOOKING FORM =====
+    const bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const msg = document.getElementById('successMessage');
+            msg.classList.add('show');
+
+            this.reset();
+
+            setTimeout(() => msg.classList.remove('show'), 4000);
+        });
+    }
+
+    // ===== STAFF ZOOM =====
+    document.querySelectorAll('.staff-card').forEach(card => {
+        card.addEventListener('mouseover', function () {
+            card.zoomTimeout = setTimeout(() => card.classList.add('zoomed'), 300);
+        });
+
+        card.addEventListener('mouseout', function () {
+            clearTimeout(card.zoomTimeout);
+            card.classList.remove('zoomed');
+        });
+    });
+
+document.querySelectorAll('.staff-card').forEach(card => {
+    card.onclick = () => {
+        let bio = card.querySelector('.staff-bio');
+
+        bio.innerText = bio.innerText === "" 
+            ? card.dataset.bio 
+            : "";
+    }
+});
+
+
+    // ===== BILLING =====
+    function calculateBilling() {
+        let total = 0;
+
+        document.querySelectorAll('.dish-checkbox').forEach((cb, i) => {
+            if (cb.checked) {
+                const price = parseFloat(cb.dataset.price);
+                const qty = parseInt(document.getElementById('qty' + (i + 1)).value) || 1;
+                total += price * qty;
+            }
+        });
+
+        document.getElementById('totalBill').textContent = '$' + total.toFixed(2);
+    }
+    window.calculateBilling = calculateBilling;
+
+});
+</script>
