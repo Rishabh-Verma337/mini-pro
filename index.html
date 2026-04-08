@@ -27,7 +27,7 @@
             line-height: 1.6;
         }
 
-        /* ===== NAVBAR ===== */
+        /*  NAVBAR */
 
         .navbar {
             background-color: var(--dark-color);
@@ -74,7 +74,7 @@
             background-color: rgba(212, 165, 116, 0.1);
         }
 
-        /* ===== HOME PAGE ===== */
+        /*  HOME PAGE  */
 
         .container {
             display: none;
@@ -194,7 +194,7 @@
             font-size: 1.2rem;
         }
 
-        /* ===== SIGN-UP FORM ===== */
+        /* SIGN-UP FORM */
 
         .modal-overlay {
             display: none;
@@ -351,7 +351,7 @@
             content: "✓ ";
         }
 
-        /* ===== BOOK A TABLE FORM ===== */
+        /* BOOK A TABLE FORM  */
 
         .booking-section {
             background: white;
@@ -438,7 +438,7 @@
             display: block;
         }
 
-        /* ===== STAFF PAGE ===== */
+        /*  STAFF PAGE */
 
       .staff-grid {
     display: grid;
@@ -510,7 +510,7 @@
  	   text-align: center;
 	}
 
-        /* ===== CONTACT PAGE ===== */
+        /*  CONTACT PAGE*/
 
         .contact-container {
             display: grid;
@@ -548,7 +548,7 @@
             text-decoration: underline;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .navbar-content {
                 flex-direction: column;
@@ -600,7 +600,7 @@
 </head>
 <body>
 
-	<!-- NAVBAR -->
+	<!-- navigation bar-->
 <nav class="navbar">
     <div class="navbar-content">
         <div class="logo">🍽️ The Golden Fork</div>
@@ -632,7 +632,7 @@
     </div>
 
     <div class="menu-section">
-        <h2>🍴 Featured Menu</h2>
+        <h2>Featured Menu</h2>
         <div class="menu-grid">
           <div class="menu-grid">
     <div class="menu-item">
@@ -719,14 +719,14 @@
         <h2>📅 Book a Table</h2>
         
         <div id="successMessage" class="success-message">
-            ✓ Table booked successfully! We look forward to your visit.
+            Table booked successfully! We look forward to your visit.
         </div>
 
         <form id="bookingForm">
             <div class="form-grid">
                 <div class="form-group">
                     <label for="fullName">Full Name:</label>
-                    <input type="text" id="fullName" placeholder="Your name" required>
+                    <input type="text" id="fullName"  required>
                 </div>
 
                 <div class="form-group">
@@ -736,7 +736,7 @@
 
                 <div class="form-group">
                     <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" placeholder="(123) 456-7890" required>
+                    <input type="tel" id="phone" placeholder="123- 456-7890" required>
                 </div>
 
                 <div class="form-group">
@@ -752,7 +752,7 @@
                 <div class="form-group">
                     <label for="guests">Number of Guests:</label>
                     <select id="guests" required>
-                        <option value="">Select number of guests</option>
+                        <option value=""> number of guests</option>
                         <option value="1">1 Guest</option>
                         <option value="2">2 Guests</option>
                         <option value="3">3 Guests</option>
@@ -765,7 +765,7 @@
 
             <div class="form-group">
                 <label for="specialRequests">Special Requests:</label>
-                <textarea id="specialRequests" placeholder="Any dietary restrictions or special occasions?"></textarea>
+                <textarea id="specialRequests" ></textarea>
             </div>
 
             <!-- BILLING SECTION -->
@@ -792,35 +792,35 @@
 <!-- Dal -->
 <div style="display: flex; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid #ddd;">
     <input type="checkbox" id="dish3" class="dish-checkbox" data-price="220" onchange="calculateBilling()">
-    <label for="dish3">Dal Makhani - ₹220</label>
+    <label for="dish3" style="margin: 0 1rem; flex: 1;">Dal Makhani - ₹220</label>
     <input type="number" id="qty3" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
 </div>
 
 <!-- Biryani -->
 <div style="display: flex; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid #ddd;">
     <input type="checkbox" id="dish4" class="dish-checkbox" data-price="300" onchange="calculateBilling()">
-    <label for="dish4">Chicken Biryani - ₹300</label>
+    <label for="dish4" style="margin: 0 1rem; flex: 1;">Chicken Biryani - ₹300</label>
     <input type="number" id="qty4" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
 </div>
 
 <!-- Naan -->
 <div style="display: flex; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid #ddd;">
     <input type="checkbox" id="dish5" class="dish-checkbox" data-price="80" onchange="calculateBilling()">
-    <label for="dish5">Garlic Naan - ₹80</label>
+    <label for="dish5" style="margin: 0 1rem; flex: 1;">Garlic Naan - ₹80</label>
     <input type="number" id="qty5" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
 </div>
 
 <!-- Dessert -->
 <div style="display: flex; align-items: center;">
     <input type="checkbox" id="dish6" class="dish-checkbox" data-price="90" onchange="calculateBilling()">
-    <label for="dish6">Gulab Jamun - ₹90</label>
+    <label for="dish6" style="margin: 0 1rem; flex: 1;">Gulab Jamun - ₹90</label>
     <input type="number" id="qty6" value="1" min="1" onchange="calculateBilling()" style="width:60px;">
 </div>
 </div>
                 <!-- Total Bill Section -->
                 <div style="background: var(--primary-color); color: white; padding: 1.5rem; border-radius: 8px; text-align: center;">
-                    <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Total Billing Amount:</p>
-                    <h2 id="totalBill" style="font-size: 2.5rem; margin: 0;">$0.00</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Total  Amount:</p>
+                    <h2 id="totalBill" style="font-size: 2.5rem; margin: 0;">Rs.0.00</h2>
                 </div>
             </div>
 
@@ -905,18 +905,15 @@
             <h3>📍 Location</h3>
             <p>
                 The Golden Fork<br>
-                123 Gourmet Street<br>
-                Culinary City, CC 12345<br>
-                United States
+                123 Laknhn street<br>
+                UP
             </p>
         </div>
 
         <div class="contact-card">
             <h3>📞 Phone</h3>
             <p>
-                Reservations: <a href="tel:+1234567890">(123) 456-7890</a><br>
-                General Inquiries: <a href="tel:+1234567891">(123) 456-7891</a><br>
-                <br>
+                Contact no: +1234567891</a><br>
                 Hours: Mon-Sun: 5:00 PM - 11:00 PM
             </p>
         </div>
@@ -924,9 +921,8 @@
         <div class="contact-card">
             <h3>✉️ Email</h3>
             <p>
-                Reservations: <a href="/cdn-cgi/l/email-protection#40222f2f2b00272f2c24252e262f322b6e232f2d"><span class="__cf_email__" data-cfemail="680a070703280f07040c0d060e071a03460b0705">[email&#160;protected]</span></a><br>
-                General: <a href="/cdn-cgi/l/email-protection#a8c1c6cec7e8cfc7c4cccdc6cec7dac386cbc7c5"><span class="__cf_email__" data-cfemail="ec85828a83ac8b83808889828a839e87c28f8381">[email&#160;protected]</span></a><br>
-                Catering: <a href="/cdn-cgi/l/email-protection#5330322736213a3d3413343c3f37363d353c21387d303c3e"><span class="__cf_email__" data-cfemail="5635372233243f38311631393a3233383039243d7835393b">[email&#160;protected]</span></a>
+                Reservations: goldenfork@reservations.com<br>
+                Catering: goldenfork@caterers.com
             </p>
         </div>
     </div>
@@ -935,7 +931,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ===== PAGE NAVIGATION =====
+    
     function showPage(pageId) {
         const pages = document.querySelectorAll('.container');
         pages.forEach(page => page.classList.remove('active'));
@@ -947,7 +943,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     window.showPage = showPage;
 
-    // ===== SIGN-UP MODAL =====
+    // SIGN-UP
     function openSignUp() {
         document.getElementById('signupModal').classList.add('active');
     }
@@ -967,7 +963,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target === this) closeSignUp();
     });
 
-    // ===== PASSWORD VALIDATION =====
+    // PASSWORD
     const passwordInput = document.getElementById('password');
 
     if (passwordInput) {
@@ -980,7 +976,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ===== SIGNUP VALIDATION =====
+    // SIGNUP VALIDATION 
     function validateAndSubmit() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
